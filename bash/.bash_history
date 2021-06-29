@@ -1,5 +1,3 @@
-./a.out 
-clear
 ls
 cat users.txt 
 exit
@@ -1997,4 +1995,6 @@ nvim .bashrc
 conda
 nvim .bashrc
 exity
+exit
+nvim init.vim 
 exit
