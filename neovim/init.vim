@@ -63,7 +63,7 @@ nnoremap <S-TAB> :bprevious<CR>
  "Alternate way to save
 nnoremap <C-s> :w<CR>
  "Alternate way to quit
-nnoremap <C-Q> :wq!<CR>
+nnoremap <C-Q> :q!<CR>
  "Better tabbing
 vnoremap < <gv
 vnoremap > >gv
