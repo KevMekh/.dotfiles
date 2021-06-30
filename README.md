@@ -1,5 +1,6 @@
 # .dotfiles
-My .dotfiles configs.
+My .dotfiles configs
+
 Run the below command replacing the text including <>
 ```
 ln -s <absolute_path_to_current_file> <absolute_path_to_config_file>
