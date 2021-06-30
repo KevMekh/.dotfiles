@@ -1,4 +1,4 @@
-# PATHS
+Paths:
 ```
 $HOME/.config/
 or
