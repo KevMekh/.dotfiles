@@ -1,6 +1,6 @@
 Paths
 ```
-$HOME/
+$HOME/.zshrc
 or
-~/
+~/.zshrc
 ```
