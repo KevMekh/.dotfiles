@@ -5,7 +5,7 @@ or
 ~/.config/fish
 ```
 
-#Setup
+# Setup
 ```
 curl -L https://get.oh-my.fish | fish
 omf install shellder
