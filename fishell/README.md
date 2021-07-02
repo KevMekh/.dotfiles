@@ -1,6 +1,13 @@
-Paths:
+Paths
 ```
-$HOME/.config/
+$HOME/.config/fish
 or
-~/.config/
+~/.config/fish
+```
+
+#Setup
+```
+curl -L https://get.oh-my.fish | fish
+omf install shellder
+omf theme shellder
 ```

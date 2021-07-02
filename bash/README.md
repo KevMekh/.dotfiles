@@ -1,6 +1,6 @@
 Paths:
 ```
-$HOME/
+$HOME/.bashrc
 or
-~/
+~/.bashrc
 ```
