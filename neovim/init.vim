@@ -48,7 +48,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf.vim'
 "QoL
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
@@ -90,10 +89,10 @@ let g:airline_theme='deus'                  "Set theme
 let g:airline_powerline_fonts=1             "Enable powerline fonts
 let g:airline#extensions#tabline#enabled=1  "Enable the list of buffers
 let g:airline#extensions#branch#enabled = 1 "Show git branch in status line
- "fzf setting
+ "fzf settings (Not configured properly)
 let g:fzf_preview_window = 'right:50%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
- "Open NERDTree
+ "NERDTree settings
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
