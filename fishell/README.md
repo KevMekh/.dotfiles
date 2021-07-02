@@ -1,8 +1,8 @@
 Paths
 ```
-$HOME/.config/fish
+$HOME/.config/fish/
 or
-~/.config/fish
+~/.config/fish/
 ```
 
 # Setup
