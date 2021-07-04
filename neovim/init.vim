@@ -1,6 +1,6 @@
 "Neovim Settings/Plugins/Mappings
 
-"Settings
+"{{{ Settings
 syntax on                       "Enable syntax - on by default on nvim, but whatever
 set nocompatible                "F**k vi
 set nowrap                      "Display long lines on a single line
@@ -30,9 +30,10 @@ set noshowmode                  "Remove e.g. --INSERT-- display
 set laststatus=2                "Always show statusline
 set path+=**					"Searches current directory recursively.
 set wildmenu					"Display all matches when tab complete.
+set foldmethod=marker
+"}}}
 
-
-"Plugin Manager (vim-plug)
+"{{{ Plugin Manager (vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
 "Start menu
 Plug 'mhinz/vim-startify'
@@ -50,9 +51,9 @@ Plug 'junegunn/fzf.vim'
 "QoL
 Plug 'liuchengxu/vim-which-key'
 call plug#end()
+"}}}
 
-
-"Custom Keybinds
+"{{{ Custom Keybinds
  "Set Leader-key
 let mapleader=" "
  "Window navigation
@@ -81,18 +82,20 @@ vnoremap < <gv
 vnoremap > >gv
  "Open terminal inside nvim
 map <Leader>tt :new term://fish<CR>
-
+"}}}
 
 "Plugin specific settings
- "Vim-airline settings
+"{{{Vim-airline settings
 let g:airline_theme='deus'                  "Set theme
 let g:airline_powerline_fonts=1             "Enable powerline fonts
 let g:airline#extensions#tabline#enabled=1  "Enable the list of buffers
 let g:airline#extensions#branch#enabled = 1 "Show git branch in status line
- "fzf settings (Not configured properly)
+"}}}
+"{{{ fzf settings (Not configured properly)
 let g:fzf_preview_window = 'right:50%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
- "NERDTree settings
+"}}}
+"{{{ NERDTree settings
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
@@ -100,4 +103,4 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize=38
-
+"}}}
