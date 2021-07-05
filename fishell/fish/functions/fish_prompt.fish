@@ -1,1 +1,0 @@
-/home/kevmekh/.local/share/omf/themes/shellder/fish_prompt.fish

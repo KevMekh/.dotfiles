@@ -85,7 +85,7 @@ map <Leader>tt :new term://fish<CR>
 "}}}
 
 "Plugin specific settings
-"{{{Vim-airline settings
+"{{{ Vim-airline settings
 let g:airline_theme='deus'                  "Set theme
 let g:airline_powerline_fonts=1             "Enable powerline fonts
 let g:airline#extensions#tabline#enabled=1  "Enable the buffer list on top
