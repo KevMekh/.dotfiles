@@ -35,8 +35,6 @@ set foldmethod=marker
 
 "{{{ Plugin Manager (vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
-"Start menu
-Plug 'mhinz/vim-startify'
 "Powerline statusbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -50,6 +48,12 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf.vim'
 "QoL
 Plug 'liuchengxu/vim-which-key'
+"Lua plugins
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'glepnir/lspsaga.nvim'
 call plug#end()
 "}}}
 
@@ -82,6 +86,13 @@ vnoremap < <gv
 vnoremap > >gv
  "Open terminal inside nvim
 map <Leader>tt :new term://fish<CR>
+ "LSP config (the mappings used in the default file don't quite work right)
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+ "auto-format
+autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
 "}}}
 
 "Plugin specific settings
@@ -130,4 +141,38 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize=38
+"}}}
+"{{{ Lua-Plugins
+
+lua << EOF
+-- LSPConfig
+require('lspconfig').pyright.setup{}
+-- LSPInstall
+local function setup_servers()
+  require'lspinstall'.setup()
+  local servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(servers) do
+    require'lspconfig'[server].setup{}
+  end
+end
+setup_servers()
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+
+-- Treesitter
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+  },
+}
+
+EOF
+
 "}}}
