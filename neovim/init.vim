@@ -65,16 +65,16 @@ nnoremap <C-l> <C-w>l
 nnoremap <Leader>ss :split<CR>
 nnoremap <Leader>sv :vsplit<CR>
  "Make adjusting split sizes a bit more friendly
-noremap <silent> <C-Left> :vertical resize +3<CR>
-noremap <silent> <C-Right> :vertical resize -3<CR>
-noremap <silent> <C-Down> :resize +3<CR>
-noremap <silent> <C-Up> :resize -3<CR>
+noremap <silent> <C-Left> :vertical resize -3<CR>
+noremap <silent> <C-Right> :vertical resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
+noremap <silent> <C-Up> :resize +3<CR>
  "TAB in normal mode will move to text buffer
 nnoremap <silent> <TAB> :bnext<CR>
  "SHIFT-TAB will go back
 nnoremap <silent> <S-TAB> :bprevious<CR>
  "Alternate way to save
-nnoremap <C-w> :w<CR>
+nnoremap <C-s> :w<CR>
  "Alternate way to quit
 nnoremap <C-Q> :q<CR>
  "Better tabbing
