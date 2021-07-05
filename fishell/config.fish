@@ -8,8 +8,8 @@
 #    alias la "ll -a"
 #end
 # Current solution
-alias ls "exa --icons"
-alias ll "exa -l -g -a --icons --git"
+alias ls "exa --icons --header"
+alias ll "ls -l -g -a --git"
 alias la "ls -a"
 
 # Paths
