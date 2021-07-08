@@ -36,7 +36,7 @@ set foldmethod=marker
 "{{{ Plugin Manager (vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
 "Theme
-Plug 'dracula/vim'
+"Plug 'sonph/onehalf', { 'rtp': 'vim' }
 "Powerline statusbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -48,14 +48,12 @@ Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf.vim'
-"QoL
-Plug 'liuchengxu/vim-which-key'
 "Lua plugins
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 Plug 'hrsh7th/nvim-compe'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 "}}}
 
@@ -88,25 +86,22 @@ vnoremap < <gv
 vnoremap > >gv
  "Open terminal inside nvim
 map <Leader>tt :new term://fish<CR>
- "LSP config (the mappings used in the default file don't quite work correctly)
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 "}}}
 
 "Plugin specific settings
-"Dracula color theme
-color dracula
+"Set theme
+"colorscheme onehalfdark
 "{{{ Vim-airline settings
 let g:airline_theme='deus'                  "Set theme
 let g:airline_powerline_fonts=1             "Enable powerline fonts
 let g:airline#extensions#tabline#enabled=1  "Enable the buffer list on top
-let g:airline#extensions#branch#enabled = 1 "Enable git branch in status line
+let g:airline#extensions#branch#enabled=1   "Enable git branch in status line
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-" unicode symbols
+"unicode symbols
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
@@ -120,7 +115,7 @@ let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" airline symbols
+"airline symbols
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -163,8 +158,10 @@ nvim_lsp.pyright.setup {
 nvim_lsp.vimls.setup {
   on_attach = on_attach
 }
-
 EOF
+"LSP config mappings
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 
 "Nvim-compe
 lua << EOF
@@ -219,4 +216,30 @@ nnoremap <silent>K :Lspsaga hover_doc<CR>
 inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 
+"Treesitter
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    disable = {},
+  },
+  indent = {
+    enable = false,
+    disable = {},
+  },
+  ensure_installed = {
+    "tsx",
+    "toml",
+    "fish",
+    "php",
+    "json",
+    "yaml",
+    "swift",
+    "html",
+    "scss"
+  },
+}
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.tsx.used_by = { "python", "javascript", "vim", "lua" }
+EOF
 "}}}
