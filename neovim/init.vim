@@ -36,7 +36,8 @@ set foldmethod=marker
 "{{{ Plugin Manager (vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
 "Theme
-"Plug 'sonph/onehalf', { 'rtp': 'vim' }
+" Using Vim-Plug
+Plug 'navarasu/onedark.nvim'
 "Powerline statusbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -90,7 +91,7 @@ map <Leader>tt :new term://fish<CR>
 
 "Plugin specific settings
 "Set theme
-"colorscheme onehalfdark
+colorscheme onedark
 "{{{ Vim-airline settings
 let g:airline_theme='deus'                  "Set theme
 let g:airline_powerline_fonts=1             "Enable powerline fonts
