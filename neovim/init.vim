@@ -234,12 +234,9 @@ require'nvim-treesitter.configs'.setup {
     "php",
     "json",
     "yaml",
-    "swift",
     "html",
     "scss"
   },
 }
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.tsx.used_by = { "python", "javascript", "vim", "lua" }
 EOF
 "}}}
