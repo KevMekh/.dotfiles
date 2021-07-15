@@ -53,6 +53,10 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hoob3rt/lualine.nvim'
 "Icons pack
 Plug 'kyazdani42/nvim-web-devicons'
+"Telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 "}}}
 
@@ -209,13 +213,12 @@ saga.init_lsp_saga {
 }
 EOF
 "}}}
-" show hover doc
 nnoremap <silent>K :Lspsaga hover_doc<CR>
 inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 noremap <silent> <C-j> :Lspsaga diagnostic_jump_next<CR>
 
-"Nvim-completion
+"Nvim-completion (Setup in LSPConfig: on_attach())
 set completeopt=menuone,noinsert,noselect
 "Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -286,6 +289,24 @@ lualine.setup {
 EOF
 "}}}
 
+"{{{ Telescope
+lua << EOF
+local actions = require('telescope.actions')
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      n = {
+        ["q"] = actions.close
+      },
+    },
+  }
+}
+EOF
+"}}}
+nnoremap <silent> ;f <cmd>Telescope find_files<cr>
+nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
+nnoremap <silent> \\ <cmd>Telescope buffers<cr>
+nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 "}}}
 
 "{{{ Custom Keybinds
