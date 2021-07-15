@@ -1,5 +1,5 @@
 "Neovim Settings/Plugins/Mappings
-"Requires Neovim 0.5.0+
+"Requires Neovim >=0.5.0
 
 "{{{ General settings
 syntax on                       "Enable syntax - on by default on nvim, but whatever
@@ -49,9 +49,10 @@ Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/completion-nvim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"Lua statusline
+"Lua statusline and tabline
 Plug 'hoob3rt/lualine.nvim'
-"Icons pack
+Plug 'romgrk/barbar.nvim'
+"Icons pack; Provides dependencies as well
 Plug 'kyazdani42/nvim-web-devicons'
 "Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -61,12 +62,13 @@ call plug#end()
 "}}}
 
 "Plugin specific settings
-"Set theme
+"Set colors/theme
 set termguicolors
 set background=dark
 colorscheme onedark
 
-"{{{ Lua-Plugins
+"{{{ Lua plugin specific chunks
+
 "{{{ LSPConfig
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -197,7 +199,6 @@ nvim_lsp.vimls.setup {
 }
 EOF
 "}}}
-"LSP config mappings
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 
@@ -218,7 +219,7 @@ inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 noremap <silent> <C-j> :Lspsaga diagnostic_jump_next<CR>
 
-"Nvim-completion (Setup in LSPConfig: on_attach())
+"Nvim-completion (Setup in LSPConfig: on_attach() function)
 set completeopt=menuone,noinsert,noselect
 "Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -307,35 +308,56 @@ nnoremap <silent> ;f <cmd>Telescope find_files<cr>
 nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
+
+"Barbar mappings
+"Move to previous/next (The ones commented out dont work)
+"nnoremap <silent> <Leader><TAB> :BufferNext<CR>
+"nnoremap <silent> <Leader><S-TAB> :BufferPrevious<CR>
+"Goto buffer in position...
+"nnoremap <silent> <Leader>1 :BufferGoto 1<CR>
+"nnoremap <silent> <Leader>2 :BufferGoto 2<CR>
+"nnoremap <silent> <Leader>3 :BufferGoto 3<CR>
+"nnoremap <silent> <Leader>4 :BufferGoto 4<CR>
+"nnoremap <silent> <Leader>5 :BufferGoto 5<CR>
+nnoremap <silent> <A-1> :BufferGoto 1<CR>
+nnoremap <silent> <A-2> :BufferGoto 2<CR>
+nnoremap <silent> <A-3> :BufferGoto 3<CR>
+nnoremap <silent> <A-4> :BufferGoto 4<CR>
+nnoremap <silent> <A-5> :BufferGoto 5<CR>
+
 "}}}
 
 "{{{ Custom Keybinds
- "Set Leader-key
+"Set Leader-key
 let mapleader=" "
- "Window navigation
+"Window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
- "Split window
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>l <C-w>l
+"Split window
 nnoremap <Leader>ss :split<CR>
 nnoremap <Leader>sv :vsplit<CR>
- "Make adjusting split sizes a bit more friendly
+"Make adjusting split sizes a bit more friendly
 noremap <silent> <C-Left> :vertical resize -3<CR>
 noremap <silent> <C-Right> :vertical resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
 noremap <silent> <C-Up> :resize +3<CR>
- "TAB in normal mode will move to text buffer
-nnoremap <silent> <TAB> :bnext<CR>
- "SHIFT-TAB will go back
-nnoremap <silent> <S-TAB> :bprevious<CR>
- "Alternate way to save
+"TAB in normal mode will move to text buffer (Using barbar.nvim options)
+nnoremap <silent> <Leader><TAB> :bnext<CR>
+"SHIFT-TAB will go back
+nnoremap <silent> <Leader><S-TAB> :bprevious<CR>
+"Alternate way to save
 nnoremap <C-s> :w<CR>
- "Alternate way to quit
-nnoremap <C-Q> :q<CR>
- "Better tabbing
+"Alternate way to quit
+nnoremap <C-q> :q<CR>
+"Better tabbing
 vnoremap < <gv
 vnoremap > >gv
- "Open terminal inside nvim
+"Open terminal inside nvim
 map <Leader>tt :new term://fish<CR>
 "}}}
