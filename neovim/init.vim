@@ -31,6 +31,8 @@ set noshowmode                  "Remove e.g. --INSERT-- display
 set laststatus=2                "Always show statusline
 set path+=**					"Searches current directory recursively.
 set wildmenu					"Display all matches when tab complete.
+set ignorecase                  "Case insensitive search
+set smartcase                   "Case sensitive search if specified
 set foldmethod=marker
 "}}}
 
@@ -44,7 +46,7 @@ Plug 'airblade/vim-gitgutter'
 "LSP and Treesitter
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
-Plug 'hrsh7th/nvim-compe'
+Plug 'nvim-lua/completion-nvim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Lua statusline
@@ -56,10 +58,12 @@ call plug#end()
 
 "Plugin specific settings
 "Set theme
+set termguicolors
+set background=dark
 colorscheme onedark
 
 "{{{ Lua-Plugins
-"LSPConfig
+"{{{ LSPConfig
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local protocol = require('vim.lsp.protocol')
@@ -78,6 +82,36 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
     vim.api.nvim_command [[augroup END]]
   end
+  -- Completion-nvim
+  require'completion'.on_attach(client, bufnr)
+  protocol.CompletionItemKind = {
+    '', -- Text
+    '', -- Method
+    '', -- Function
+    '', -- Constructor
+    '', -- Field
+    '', -- Variable
+    '', -- Class
+    'ﰮ', -- Interface
+    '', -- Module
+    '', -- Property
+    '', -- Unit
+    '', -- Value
+    '', -- Enum
+    '', -- Keyword
+    '﬌', -- Snippet
+    '', -- Color
+    '', -- File
+    '', -- Reference
+    '', -- Folder
+    '', -- EnumMember
+    '', -- Constant
+    '', -- Struct
+    '', -- Event
+    'ﬦ', -- Operator
+    '', -- TypeParameter
+    }
+
 end
 
 -- DiagnosticLS
@@ -158,11 +192,12 @@ nvim_lsp.vimls.setup {
   on_attach = on_attach
 }
 EOF
+"}}}
 "LSP config mappings
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 
-"LSPSaga
+"{{{ LSPSaga
 lua << EOF
 local saga = require('lspsaga')
 saga.init_lsp_saga {
@@ -173,50 +208,19 @@ saga.init_lsp_saga {
   border_style = "round",
 }
 EOF
+"}}}
 " show hover doc
 nnoremap <silent>K :Lspsaga hover_doc<CR>
 inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 noremap <silent> <C-j> :Lspsaga diagnostic_jump_next<CR>
 
-"Nvim-compe
-lua << EOF
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  resolve_timeout = 800;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = {
-    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    max_width = 120,
-    min_width = 60,
-    max_height = math.floor(vim.o.lines * 0.3),
-    min_height = 1,
-  };
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-    ultisnips = true;
-    luasnip = true;
-  };
-}
-EOF
-
-"Treesitter
+"Nvim-completion
+set completeopt=menuone,noinsert,noselect
+"Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"{{{ Treesitter
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -236,13 +240,15 @@ require'nvim-treesitter.configs'.setup {
     "yaml",
     "html",
     "scss",
+    "lua",
     "javascript",
     "python"
   },
 }
 EOF
+"}}}
 
-"Lualine (Status line)
+"{{{ Lualine (Status line)
 lua << EOF
 local status, lualine = pcall(require, "lualine")
 if (not status) then return end
@@ -278,6 +284,8 @@ lualine.setup {
   extensions = {'fugitive'}
 }
 EOF
+"}}}
+
 "}}}
 
 "{{{ Custom Keybinds
