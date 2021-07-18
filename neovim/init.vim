@@ -41,8 +41,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 "Theme
 Plug 'navarasu/onedark.nvim'
 "Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 "LSP and Treesitter
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
@@ -67,7 +66,7 @@ set termguicolors
 set background=dark
 colorscheme onedark
 
-"{{{ Lua plugin specific chunks
+"{{{ Lua plugin chunks
 
 "{{{ LSPConfig
 lua << EOF
@@ -88,6 +87,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
     vim.api.nvim_command [[augroup END]]
   end
+
   -- Completion-nvim
   require'completion'.on_attach(client, bufnr)
   protocol.CompletionItemKind = {
@@ -178,7 +178,7 @@ nvim_lsp.diagnosticls.setup {
     }
   }
 }
--- Diagonstics custom icons
+-- Diagnostics custom icons
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
@@ -224,6 +224,7 @@ set completeopt=menuone,noinsert,noselect
 "Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 "{{{ Treesitter
 lua << EOF
 require'nvim-treesitter.configs'.setup {
@@ -249,6 +250,12 @@ require'nvim-treesitter.configs'.setup {
     "python"
   },
 }
+EOF
+"}}}
+
+"{{{ Git
+lua << EOF
+require('gitsigns').setup()
 EOF
 "}}}
 
