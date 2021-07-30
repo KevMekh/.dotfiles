@@ -89,7 +89,8 @@ require'nvim-treesitter.configs'.setup {
     "scss",
     "lua",
     "javascript",
-    "python"
+    "python",
+    "cpp"
   },
 }
 EOF
