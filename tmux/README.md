@@ -46,3 +46,7 @@ It should look like this:
 ```
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
+To install plugins:
+```
+prefix + I
+```
