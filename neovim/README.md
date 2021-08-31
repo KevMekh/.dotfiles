@@ -6,6 +6,12 @@ or
 ```
 
 # Setup
+Install Neovim 0.5+
+```
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+sudo ln -s <path_to_appimage>/nvim.appimage /usr/local/bin/nvim
+```
 Install plugin manager (vim-plug)
 ```bash
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
