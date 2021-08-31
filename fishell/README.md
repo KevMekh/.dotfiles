@@ -10,6 +10,6 @@ or
 ln -s ~/github/.dotfiles/fishell/config.fish ~/.config/fish/config.fish
 
 curl -L https://get.oh-my.fish | fish
-omf install shellder
-omf theme shellder
+omf install bobthefish
+omf theme bobthefish
 ```
