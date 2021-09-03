@@ -12,5 +12,9 @@ alias ls "exa --icons --header"
 alias ll "ls -l -g -a --git"
 alias la "ls -a"
 
+# Bobthefish theme settings
+set -g theme_display_git_default_branch yes
+set -g theme_color_scheme zenburn
+
 # Paths
 set PATH ~/.cargo/bin $PATH
