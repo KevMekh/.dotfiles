@@ -18,3 +18,4 @@ CLI Tools installed with [cargo](https://github.com/rust-lang/cargo):
 * bat 
 * exa
 * ripgrep
+* fd
