@@ -15,3 +15,4 @@ alias la "ls -a"
 # Paths
 set PATH ~/.cargo/bin $PATH # Cargo
 set PATH $PATH (go env GOPATH)/bin # Golang
+
